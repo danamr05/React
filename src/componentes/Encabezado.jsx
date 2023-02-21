@@ -1,10 +1,10 @@
 import Titulo from "./Titulo";
 
-function Encabezado () {
+function Encabezado (props) {
     return (
         <>
         <Titulo mensaje="Martes 21 de Enero 2023"/>
-        <Titulo subtitulo={true} mensaje="Inventario disponible"/>
+        <Titulo subtitulo mensaje={`${props.pins.lenght} Pins`} />
         </>
     )
 }

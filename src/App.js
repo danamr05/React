@@ -1,12 +1,31 @@
+import React from "react";
 import "./App.css";
-import Encabezado from "./componentes/Encabezado";
 import Cuerpo from "./componentes/Cuerpo";
+import Encabezado from "./componentes/Encabezado";
 
-function App() {
+const pinsIniciales = [  
+    {
+      titulo: "La noche estrellada",
+      hecho: true,
+    },
+    {
+      titulo: "Zero The Night Before Christmas",
+      hecho: false,
+    },
+    {
+      titulo: "Calcifer",
+      hecho: false,
+    },
+];
+
+
+  function App() {
+    const [pins] = React.useState(pinsIniciales);
+
   return (
     <>
-    <Encabezado/>
-    <Cuerpo/>
+    <Encabezado pins={pins} />
+    <Cuerpo pins={pins} />
     </>
   );
 }

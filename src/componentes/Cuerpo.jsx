@@ -1,9 +1,9 @@
-import Inventario from "./Inventario";
+import Pins from "./Pins";
 
-function Cuerpo () {
+function Cuerpo (props) {
     return (
         <main>
-            <Inventario/>
+            <Pins pins={props.pins}/>
         </main>
     )
 }

@@ -7,33 +7,36 @@ const pinsIniciales = [
     {
       titulo: "La noche estrellada",
       hecho: true,
-      stock: "NO DISPONIBLE",
+      stock: "45 DISPONIBLE",
     },
     {
       titulo: "Zero The Night Before Christmas",
       hecho: false,
-      stock: "DISPONIBLE",
+      stock: "7 DISPONIBLE",
     },
     {
       titulo: "Calcifer",
       hecho: false,
-      stock: "DISPONIBLE",
+      stock: "10 DISPONIBLE",
     },
 ];
 
   function App() {
     const [pins, ponerPins] = React.useState(pinsIniciales);
+    // true sirve para el tema LIGHT
+    // false para DARK
+    const [toogle, setToogle] = React.useState (true);
     const modificarPins = (id, propiedad, valor) => {
       const copiaPins = [...pins];
       copiaPins[id][propiedad]= valor;
       ponerPins(copiaPins); 
     }; 
-
+ 
   return (
-    <>
-    <Encabezado pins={pins} />
+    <div className={`wrapper ${toogle ? "" : "dark"}`}>
+    <Encabezado pins={pins} toogle={toogle} setToogle={setToogle} />
     <Cuerpo pins={pins} modificarPins={modificarPins} />
-    </>
+    </div>
   );
 }
 

@@ -21,6 +21,21 @@ const pinsIniciales = [
     },
 ];
 
+
+const reductorPins = (estado, accion) => {
+  const nuevoEstado = [...estado];
+
+  switch(accion.tipo) {
+    case "ponerHecho":
+      nuevoEstado[accion.id].hecho =true;
+      return nuevoEstado;
+    case "quitarHecho":
+      nuevoEstado[accion.id].hecho =false;
+      return nuevoEstado;
+      default: throw new Error(`Acción desconocida: ${accion.tipo}`)
+  }
+};
+
 const estadoInicial = "light";
 const calcularSiguienteEstado = (estado) => {
   switch (estado) {
@@ -58,22 +73,23 @@ const reductor = (estado, accion) => {
 };
 
   function App() {
-    const [pins, ponerPins] = React.useState(pinsIniciales);
+    //const [pins, ponerPins] = React.useState(pinsIniciales);
     // true sirve para el tema LIGHT
     // false para DARK
+    const [pins, ponerPins] = React.useReducer(reductorPins, pinsIniciales);
 // const [toggle, setToggle] = React.useState("light");
 const [toogle, setToogle] = React.useReducer(reductor, estadoInicial);
 
-    const modificarPins = (id, propiedad, valor) => {
-      const copiaPins = [...pins];
-      copiaPins[id][propiedad]= valor;
-      ponerPins(copiaPins); 
-    }; 
+    //const modificarPins = (id, propiedad, valor) => {
+     //const copiaPins = [...pins];
+      //copiaPins[id][propiedad]= valor;
+      //ponerPins(copiaPins); 
+    //}; 
  
   return (
     <div className={`wrapper ${toogle ? "" : "dark"}`}>
     <Encabezado pins={pins} toogle={toogle} setToogle={setToogle} />
-    <Cuerpo pins={pins} modificarPins={modificarPins} />
+    <Cuerpo pins={pins} ponerPins={ponerPins} />
     </div>
   );
 }

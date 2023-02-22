@@ -12,4 +12,4 @@ const PinType = PropTypes.shape(Pin);
 export {
     Pin,
     PinType,
-}
+};

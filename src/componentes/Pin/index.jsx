@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { Pin as PinShape } from "../../prop-types";
 import "./index.css"
 
@@ -11,7 +13,7 @@ function Pin(props) {
           type="checkbox"
           checked={props.hecho}
           onChange={(evt) => {
-            props.modificarPin(props.id, "hecho", !props.hecho);
+            props.ponerPins({tipo: props.hecho ? "quitarHecho" : "ponerHecho" , id: props.id });
           }}
         />
         <span
@@ -27,6 +29,6 @@ function Pin(props) {
     )
   }
 
-  Pin.propTypes = {...PinShape};
+  Pin.propTypes = {...PinShape, ponerPins: PropTypes.func.isRequired };
 
 export default Pin;

@@ -11,7 +11,7 @@ function Cuerpo(props) {
 };
 
 Cuerpo.propTypes = {
-    modificarPins: PropTypes.func.isRequired,
+    ponerPins: PropTypes.func.isRequired,
     pins: PropTypes.arrayOf(PinType).isRequired,
 };
 

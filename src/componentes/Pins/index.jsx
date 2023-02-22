@@ -11,11 +11,9 @@ function Pins (props) {
           return (
             <Pin
             key={indice}
-            modificarPins={props.modificarPins}
+            ponerPins={props.ponerPins}
             id={indice}
-            hecho={elemento.hecho}
-            titulo={elemento.titulo}
-            stock={elemento.stock}
+            {...elemento}
             />
         );
       })
@@ -25,7 +23,7 @@ function Pins (props) {
 }
 
 Pins.propTypes = {
-  modificarPin: PropTypes.func.isRequired,
+  ponerPins: PropTypes.func.isRequired,
   pins: PropTypes.arrayOf(PinType).isRequired,
 };
 

@@ -7,3 +7,4 @@ Footer.protoTypes = {
     fecha: PropTypes.instanceOf(Date).isRequired,
 }
 
+export default Footer;

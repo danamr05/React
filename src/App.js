@@ -21,11 +21,49 @@ const pinsIniciales = [
     },
 ];
 
+const estadoInicial = "light";
+const calcularSiguienteEstado = (estado) => {
+  switch (estado) {
+      case "light":
+          return "medium";
+      case "medium":
+          return "dark";
+      case "dark":
+          return "light";
+      default:
+          return "";
+  }
+};
+const calcularPrevioEstado = (estado) => {
+  switch (estado) {
+      case "light":
+          return "dark";
+      case "medium":
+          return "light";
+      case "dark":
+          return "medium";
+      default:
+          return "";
+  }
+};
+const reductor = (estado, accion) => {
+  switch(accion.tipo) {
+    case "siguiente":
+      return calcularSiguienteEstado(estado);
+    case "previo":
+      return calcularPrevioEstado(estado);
+    default:
+      throw new Error(`Acción desconocida: ${accion.tipo}`)
+  }
+};
+
   function App() {
     const [pins, ponerPins] = React.useState(pinsIniciales);
     // true sirve para el tema LIGHT
     // false para DARK
-    const [toogle, setToogle] = React.useState (true);
+// const [toggle, setToggle] = React.useState("light");
+const [toogle, setToogle] = React.useReducer(reductor, estadoInicial);
+
     const modificarPins = (id, propiedad, valor) => {
       const copiaPins = [...pins];
       copiaPins[id][propiedad]= valor;

@@ -2,37 +2,25 @@ import React from "react";
 import "./componentes/Pin/index.css";
 import Cuerpo from "./componentes/Cuerpo";
 import Encabezado from "./componentes/Encabezado";
-
-const pinsIniciales = [  
-    {
-      titulo: "La noche estrellada",
-      hecho: true,
-      stock: "45 DISPONIBLE",
-    },
-    {
-      titulo: "Zero The Night Before Christmas",
-      hecho: false,
-      stock: "7 DISPONIBLE",
-    },
-    {
-      titulo: "Calcifer",
-      hecho: false,
-      stock: "10 DISPONIBLE",
-    },
-];
+import { baseURL } from "./constantes";
 
 
 const reductorPins = (estado, accion) => {
   const nuevoEstado = [...estado];
+  const indice = estado.findIndex(elemento => elemento.id === accion.id);
 
   switch(accion.tipo) {
     case "ponerHecho":
-      nuevoEstado[accion.id].hecho =true;
+      nuevoEstado[indice].hecho =true;
       return nuevoEstado;
     case "quitarHecho":
-      nuevoEstado[accion.id].hecho =false;
+      nuevoEstado[indice].hecho =false;
       return nuevoEstado;
-      default: throw new Error(`Acción desconocida: ${accion.tipo}`)
+    case "ponerPins":
+      return accion.pins;
+    case "borrarPins":
+      return estado.filter(pin => pin.id !== accion.id);
+      default: throw new Error(`Acción desconocida: ${accion.tipo}`);
   }
 };
 
@@ -74,20 +62,17 @@ const reductor = (estado, accion) => {
 
   function App() {
     //const [pins, ponerPins] = React.useState(pinsIniciales);
-    // true sirve para el tema LIGHT
-    // false para DARK
-    const [pins, ponerPins] = React.useReducer(reductorPins, pinsIniciales);
-// const [toggle, setToggle] = React.useState("light");
-const [toogle, setToogle] = React.useReducer(reductor, estadoInicial);
+    const [pins, ponerPins] = React.useReducer(reductorPins, []);
+    const [toogle, setToogle] = React.useReducer(reductor, estadoInicial);
 
-    //const modificarPins = (id, propiedad, valor) => {
-     //const copiaPins = [...pins];
-      //copiaPins[id][propiedad]= valor;
-      //ponerPins(copiaPins); 
-    //}; 
+    React.useEffect(function(){
+      fetch(`${baseURL}/pins`) 
+      .then((response) => response.json())
+      .then((pins) => ponerPins({tipo: "ponerPins", pins}));
+    }, [])
  
   return (
-    <div className={`wrapper ${toogle ? "" : "dark"}`}>
+    <div className={`wrapper ${toogle}`}>
     <Encabezado pins={pins} toogle={toogle} setToogle={setToogle} />
     <Cuerpo pins={pins} ponerPins={ponerPins} />
     </div>

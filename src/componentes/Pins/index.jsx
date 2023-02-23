@@ -10,9 +10,8 @@ function Pins (props) {
         props.pins.map((elemento, indice) => {
           return (
             <Pin
-            key={indice}
+            key={elemento.id}
             ponerPins={props.ponerPins}
-            id={indice}
             {...elemento}
             />
         );

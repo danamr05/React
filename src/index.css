@@ -16,13 +16,23 @@ h1{
 }
 
 .dark {
-  background-color: gray;
+  background-color: black;
   color: white;
-
 }
+
+.medium {
+  background-color: grey;
+  color: #ccc;
+}
+
+.light {
+  background-color: white;
+  color: black;
+}
+
 
 .wrapper {
   height: 100vh;
-
-
+  margin: 5em auto 0;
+  width: 50vw;
 }
